@@ -146,7 +146,7 @@ opacity:.7;
 
 @keyframes pulseBg {
   0% { background-color: #e10600; }
-  50% { background-color: #ff2b2b; } /* mais claro no meio da animaÃ§Ã£o */
+  50% { background-color: #ff2b2b; } /* mais claro no meio da animação */
   100% { background-color: #e10600; }
 }
 
@@ -161,40 +161,44 @@ opacity:.7;
   &#9888; <span class="blink">ESPERE! Oferta Exclusiva Liberada</span> 
 </div>
 
-<h1>VocÃª quase perdeu essa oportunidade...</h1>
+<h1>Você quase perdeu essa oportunidade...</h1>
 
 <p>
-Percebemos que vocÃª demonstrou interesse no <strong>DROP MASTERY</strong>,
-mas ainda nÃ£o concluiu sua inscriÃ§Ã£o.
+Percebemos que você demonstrou interesse no <strong>DROP MASTERY</strong>,
+mas ainda não concluiu sua inscrição.
 </p>
 
-<h2>Por isso liberamos um desconto secreto temporÃ¡rio.</h2>
+<h2>Por isso liberamos um desconto secreto temporário.</h2>
 
 <p>
-Essa condiÃ§Ã£o NÃƒO aparece novamente apÃ³s sair desta pÃ¡gina.
+Essa condição NÃO aparece novamente após sair desta página.
 </p>
 
-<div class="old-price">
+<div class="old-price" id="price-old">
 Valor original: $9.99
 </div>
 
-<div class="price">
+<div class="price" id="price-secondary">
 $6.99
 </div>
 
 <p>
 &#10004; Acesso completo ao treinamento <br>
-&#10004; Templates de anÃºncios <br>
-&#10004; Lista de fornecedores confiÃ¡veis <br>
+&#10004; Templates de anúncios <br>
+&#10004; Lista de fornecedores confiáveis <br>
 &#10004; Checklists validados <br>
-&#10004; AtualizaÃ§Ãµes futuras gratuitas
+&#10004; Atualizações futuras gratuitas
 </p>
 
 <div class="timer" id="countdown">
 Oferta expira em 05:00
 </div>
 
-<a href="https://pay.hotmart.com/N102929996D?off=pfy8q3kx" class="btn">
+<a 
+href="https://pay.hotmart.com/N102929996D?off=svkkyh8t&lang=PT_BR&sck=HOTMART_PLATFORM&bid=1769792220558&cupom=OFERTA30"
+class="btn"
+id="buyBtn"
+>
 Garantir Minha Vaga Com Desconto
 </a>
 
@@ -239,6 +243,39 @@ time--;
 updateTimer();
 setInterval(updateTimer,1000);
 
+</script>
+
+<script>
+fetch("https://ipapi.co/json/")
+.then(response => response.json())
+.then(data => {
+
+  let priceOld = document.getElementById("price-old");
+  let priceSecondary = document.getElementById("price-secondary");
+
+  let oldValue;
+  let newValue;
+
+  if(data.country === "MZ"){
+    oldValue = "638 MZN";
+    newValue = "445 MZN";
+  } 
+  else if(data.country === "BR"){
+    oldValue = "R$ 49,90";
+    newValue = "R$ 34,90";
+  } 
+  else {
+    oldValue = "$9.99";
+    newValue = "$6.99";
+  }
+
+  if(priceOld) priceOld.innerText = oldValue;
+  if(priceSecondary) priceSecondary.innerText = newValue;
+
+})
+.catch(error => {
+  console.log("Erro ao detectar país.");
+});
 </script>
 
 </body>
